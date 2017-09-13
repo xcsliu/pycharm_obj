@@ -2,9 +2,9 @@ from json import JSONDecodeError
 import pandas as pd
 import json
 
-from constant import BAIDU_POI_READY_DATA_HEADER_LIST
-from crawler.crawler_enum import CrawlerDataType, CrawlerSourceName, CrawlerDataLabel
-from util import get_raw_data_file_path
+from poi.constant import BAIDU_POI_READY_DATA_HEADER_LIST
+from poi.crawler.crawler_enum import CrawlerDataType, CrawlerSourceName, CrawlerDataLabel
+from poi.util import get_raw_data_file_path
 
 
 def format_baidu_poi_raw_data(city_name):

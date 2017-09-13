@@ -1,8 +1,8 @@
 import pandas as pd
 
-from constant import FANGTIANXIA_READY_HEADER_LIST
-from crawler.crawler_enum import CrawlerDataType, CrawlerSourceName, CrawlerDataLabel
-from util import get_raw_data_file_path
+from poi.constant import FANGTIANXIA_READY_HEADER_LIST
+from poi.crawler.crawler_enum import CrawlerDataType, CrawlerSourceName, CrawlerDataLabel
+from poi.util import get_raw_data_file_path
 
 
 def format_fangtianxia_parcel_raw_data(city_name):

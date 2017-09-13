@@ -44,17 +44,12 @@ def consolidate_form(second_hand_community_data, new_community_data):
                                   columns=ANJUKE_SECOND_HAND_COMMUNITY_NAME_LIST_TO_ADD)
     consolidated_old = pd.concat([second_hand_community_data, to_be_appended], axis=1)
 
-    for column_name in ANJUKE_SECOND_HAND_COMMUNITY_NAME_LIST_TO_ADD:
-        second_hand_community_data[column_name] = np.nan
-
     # compliment new community
     column_num = len(ANJUKE_NEW_COMMUNITY_NAME_LIST_TO_ADD)
     row_num = len(new_community_data)
     to_be_appended = pd.DataFrame([[np.nan] * column_num] * row_num, columns=ANJUKE_NEW_COMMUNITY_NAME_LIST_TO_ADD)
     consolidated_new = pd.concat([new_community_data, to_be_appended], axis=1)
 
-    for column_name in ANJUKE_NEW_COMMUNITY_NAME_LIST_TO_ADD:
-        new_community_data[column_name] = np.nan
     return consolidated_old, consolidated_new
 
 

@@ -39,7 +39,7 @@ ANJUKE_NEW_COMMUNITY_READY_DATA_HEADER_LIST = ['address', 'baidu_lat', 'baidu_ln
                                                'loupan_name', 'metro_info', 'new_price', 'prop_num', 'region_title',
                                                'sub_region_title']
 
-ANJUKE_SECOND_COMMUNITY_RAW_DATA_HEADER_LIST = ['truncate_name', 'id', 'address', 'mid_price', 'mid_change', 'lat', 'lng', 'prop_num']
+ANJUKE_SECOND_COMMUNITY_RAW_DATA_HEADER_LIST = ['build_type', 'fitment_type', 'house_type', 'start_price', 'mid_change', 'lat', 'lng', 'prop_num']
 ANJUKE_SECOND_COMMUNITY_READY_DATA_HEADER_LIST = ['truncate_name', 'id', 'address', 'mid_price', 'mid_change', 'lat', 'lng', 'prop_num']
 
 ANJUKE_NEW_COMMUNITY_CITY_ID = {'北京': 14,
@@ -56,28 +56,24 @@ ANJUKE_NEW_COMMUNITY_CITY_ID = {'北京': 14,
                                 '西安': 31,
                                 '厦门': 46}
 
-ANJUKE_NEW_COMMUNITY_NAME_LIST_TO_ADD = ['community_id',
-                                         'community_address',
-                                         'community_mid_price',
-                                         'community_mid_change',
-                                         'community_lat',
-                                         'community_lng',
-                                         'community_prop_num']
+ANJUKE_NEW_COMMUNITY_NAME_LIST = ['name',
+                                  'lat',
+                                  'lng',
+                                  'address',
+                                  'build_type',
+                                  'fitment_type',
+                                  'house_type',
+                                  'start_price',
+                                  'region',
+                                  'sub_region',
+                                  'prop_num',
+                                  'developer']
 
-ANJUKE_SECOND_HAND_COMMUNITY_NAME_LIST_TO_ADD = ['loupan_address',
-                                                 'loupan_lat',
-                                                 'loupan_lng',
-                                                 'loupan_prop_num',
-                                                 'loupan_id',
-                                                 'loupan_price',
-                                                 'metro_info',
-                                                 'build_type',
-                                                 'developer',
-                                                 'fitment_type',
-                                                 'house_types',
-                                                 'kaipan_new_date',
-                                                 'region_title',
-                                                 'sub_region_title']
+ANJUKE_SECOND_HAND_COMMUNITY_NAME_LIST = ['name',
+                                          'lat',
+                                          'lng',
+                                          'prop_num',
+                                          'present_price']
 
 ANJUKE_UPDATE_HEADER_LIST = ['community_mid_price','community_mid_change','community_prop_num','loupan_prop_num','loupan_price']
 
@@ -141,3 +137,34 @@ FANGTIANXIA_READY_HEADER_LIST = ['地区', '总面积', '建设用地面积', '�
                                  '起始价', '成交价', '楼面地价', '溢价率', 'lng', 'lat', '地块编号']
 
 
+# complete data header list
+COMPLETE_DATA_HEADER_LIST = [   'name',
+                                'lat',
+                                'lng',
+                                'address',
+                                'build_type',
+                                'fitment_type',
+                                'house_type',
+                                'start_price',
+                                'present_price',
+                                'region',
+                                'sub_region',
+                                'prop_num',
+                                'developer',
+                                'category',
+                                'sub_category',
+                                'uid',
+                                'total_area',
+                                'construction land area',
+                                'planned_land_area',
+                                'floor_area_ratio',
+                                'green_ratio',
+                                'business_ratio',
+                                'building_density',
+                                'height_limit',
+                                'time_limit',
+                                'planned_use',
+                                'start_date',
+                                'land_number',
+                                'data_type',
+                                'city']
