@@ -1,8 +1,8 @@
 import pandas as pd
 
-from poi.constant import LIANJIA_NEW_COMMUNITY_READY_DATA_HEADER_LIST, LIANJIA_SECOND_COMMUNITY_READY_DATA_HEADER_LIST
-from poi.crawler.crawler_enum import CrawlerDataType, CrawlerSourceName, CrawlerDataLabel
-from poi.util import get_raw_data_file_path
+from constant import LIANJIA_NEW_COMMUNITY_READY_DATA_HEADER_LIST, LIANJIA_SECOND_COMMUNITY_READY_DATA_HEADER_LIST
+from crawler.crawler_enum import CrawlerDataType, CrawlerSourceName, CrawlerDataLabel
+from util import get_raw_data_file_path
 
 
 def format_lianjia_raw_data(city_name):

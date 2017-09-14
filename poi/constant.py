@@ -67,9 +67,11 @@ ANJUKE_NEW_COMMUNITY_NAME_LIST = ['name',
                                   'region',
                                   'sub_region',
                                   'prop_num',
-                                  'developer']
+                                  'developer',
+                                  'start_date']
 
 ANJUKE_SECOND_HAND_COMMUNITY_NAME_LIST = ['name',
+                                          'address',
                                           'lat',
                                           'lng',
                                           'prop_num',
@@ -106,9 +108,21 @@ LIANJIA_SECOND_HAND_COMMUNITY_CITY_ID = {'北京': 110000,
                                          '杭州': 330100,
                                          '武汉': 420100,
                                          '西安': 610100,
-                                         '厦门': 350200,
-}
+                                         '厦门': 350200}
 
+LIANJIA_SECOND_HAND_COMMUNITY_NAME_LIST = [ 'name',
+                                            'lat',
+                                            'lng',
+                                            'present_price',
+                                            'prop_num']
+
+LIANJIA_NEW_COMMUNITY_NAME_LIST = [ 'name',
+                                    'lat',
+                                    'lng',
+                                    'build_type',
+                                    'house_type',
+                                    'start_price',
+                                   ]
 # fangtianxia
 fangtianxia_page_url_pattern = 'http://land.fang.com/market/{}________1_0_{}.html'
 fangtianxia_parcel_url_pattern = 'http://land.fang.com'
@@ -138,33 +152,36 @@ FANGTIANXIA_READY_HEADER_LIST = ['地区', '总面积', '建设用地面积', '�
 
 
 # complete data header list
-COMPLETE_DATA_HEADER_LIST = [   'name',
-                                'lat',
-                                'lng',
-                                'address',
-                                'build_type',
-                                'fitment_type',
-                                'house_type',
-                                'start_price',
-                                'present_price',
-                                'region',
-                                'sub_region',
-                                'prop_num',
-                                'developer',
-                                'category',
-                                'sub_category',
-                                'uid',
-                                'total_area',
-                                'construction land area',
-                                'planned_land_area',
-                                'floor_area_ratio',
-                                'green_ratio',
-                                'business_ratio',
-                                'building_density',
-                                'height_limit',
-                                'time_limit',
-                                'planned_use',
-                                'start_date',
-                                'land_number',
-                                'data_type',
-                                'city']
+COMPLETE_DATA_HEADER_LIST =['name',
+                            'lat',
+                            'lng',
+                            'address',
+                            'build_type',
+                            'fitment_type',
+                            'house_type',
+                            'start_price',
+                            'present_price',
+                            'region',
+                            'sub_region',
+                            'prop_num',
+                            'developer',
+                            'category',
+                            'sub_category',
+                            'uid',
+                            'total_area',
+                            'construction_land_area',
+                            'planned_land_area',
+                            'floor_area_ratio',
+                            'green_ratio',
+                            'business_ratio',
+                            'building_density',
+                            'height_limit',
+                            'time_limit',
+                            'planned_use',
+                            'start_date',
+                            'land_number',
+                            'data_type',
+                            'city']
+
+
+

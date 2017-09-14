@@ -3,10 +3,8 @@ import sys
 sys.path.append('E:\\xcsliu_project\\pycharm_obj\\poi')
 
 from constant import COMPLETE_DATA_HEADER_LIST, ANJUKE_SECOND_HAND_COMMUNITY_NAME_LIST, \
-    ANJUKE_NEW_COMMUNITY_NAME_LIST, ANJUKE_UPDATE_HEADER_LIST
-from crawler.crawler_enum import CrawlerDataType, CrawlerSourceName, CrawlerDataLabel
+    ANJUKE_NEW_COMMUNITY_NAME_LIST
 from dao.anjuke_dao import format_anjuke_new_community_raw_data, format_anjuke_second_hand_community_raw_data
-from util import get_ready_data_file_path
 
 # =====================
 import numpy as np
