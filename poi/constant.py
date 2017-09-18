@@ -15,15 +15,22 @@ HEADERS = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.3
 BAIDU_API_AK = '0yMQoetZ3YOogQyAjr7CcUPBzCT82yBp'  # by xkool
 BAIDU_POI_CATEGORIES = ['美食$餐厅$超市$酒店$公园$酒吧$咖啡厅$小吃$茶座', '购物中心$便利店$园区$厂矿', '商铺$地铁$公交$轻轨$停车场$火车站$机场', '金融$住宅$美容$娱乐$健身',
                         '幼儿园$小学$中学$大学$教育$学校', '医疗$政府机构$公司$文化$数码$银行$写字楼$汽车']
-city_center_url_pattern = 'https://source.map.baidu.com/geocoder/v2/?address={}&output=json&ak={}'
-baidu_poi_url_pattern =  'https://source.map.baidu.com/place/v2/search?query={}&scope=2&coord_type=1&bounds={}&output=json&ak={}'
+city_center_url_pattern = 'https://api.map.baidu.com/geocoder/v2/?address={}&output=json&ak={}'
+baidu_poi_url_pattern =  'https://api.map.baidu.com/place/v2/search?query={}&scope=2&coord_type=1&bounds={}&output=json&ak={}'
 BAIDU_POI_RAW_DATA_HEADER_LIST = ['name', 'location', 'address', 'telephone', 'uid', 'street_id', 'detail', 'detail_info']
 BAIDU_POI_READY_DATA_HEADER_LIST = ['name', 'uid', 'lat', 'lng', 'category', 'type']
+
+BAIDU_NAME_LIST = [ 'name',
+                    'lat',
+                    'lng',
+                    'category',
+                    'sub_category',
+                    'uid']
 
 # anjuke
 anjuke_2nd_community_url_pattern = 'https://{}.anjuke.com/v3/ajax/map/sale/facet/?room_num=-1&price_id=-1&area_id=-1&floor=-1&orientation=-1&is_two_years=0&is_school=0&is_metro=0&order_id=0&p=1&zoom=19&' \
                                    'lat={}_{}&lng={}_{}&kw=&maxp=99'
-anjuke_new_community_url_pattern = 'https://source.fang.anjuke.com/web/loupan/mapNewlist/?city_id={}&callback=jQuery1113006248457428238563_1502272365154&zoom=16&' \
+anjuke_new_community_url_pattern = 'https://api.fang.anjuke.com/web/loupan/mapNewlist/?city_id={}&callback=jQuery1113006248457428238563_1502272365154&zoom=16&' \
                                    'swlng={}&swlat={}&nelng={}&nelat={}&' \
                                    'order=rank&order_type=asc&region_id=0&sub_region_id=0&house_type=0&property_type=0&price_id=0&' \
                                    'bunget_id=0&status_sale=3%2C4%2C6%2C7%2C5&price_title=%E5%85%A8%E9%83%A8&keywords=&page=1&page_size=500&timestamp=29&_=1502272365159'
@@ -39,7 +46,7 @@ ANJUKE_NEW_COMMUNITY_READY_DATA_HEADER_LIST = ['address', 'baidu_lat', 'baidu_ln
                                                'loupan_name', 'metro_info', 'new_price', 'prop_num', 'region_title',
                                                'sub_region_title']
 
-ANJUKE_SECOND_COMMUNITY_RAW_DATA_HEADER_LIST = ['build_type', 'fitment_type', 'house_type', 'start_price', 'mid_change', 'lat', 'lng', 'prop_num']
+ANJUKE_SECOND_COMMUNITY_RAW_DATA_HEADER_LIST = ['truncate_name', 'id', 'address', 'mid_price', 'mid_change', 'lat', 'lng', 'prop_num']
 ANJUKE_SECOND_COMMUNITY_READY_DATA_HEADER_LIST = ['truncate_name', 'id', 'address', 'mid_price', 'mid_change', 'lat', 'lng', 'prop_num']
 
 ANJUKE_NEW_COMMUNITY_CITY_ID = {'北京': 14,
@@ -76,10 +83,6 @@ ANJUKE_SECOND_HAND_COMMUNITY_NAME_LIST = ['name',
                                           'lng',
                                           'prop_num',
                                           'present_price']
-
-ANJUKE_UPDATE_HEADER_LIST = ['community_mid_price','community_mid_change','community_prop_num','loupan_prop_num','loupan_price']
-
-
 # lianjia
 lianjia_new_community_url_pattern = 'http://{}.fang.lianjia.com/xinfang/mapsearchloupan?&&callback=speedupjsonpapi&_=1502246125390'
 lianjia_specific_new_community_url_pattern = 'http://{}.fang.lianjia.com/loupan/ajax/ditu/newblock?limit_offset=0&limit_count=20&discount=&search=&district=&bizcircle=&metro=&price=&sta=&ft=&room=&pro=&cycle=&fea='
@@ -87,7 +90,7 @@ cq_url_for_lianjia_city_list = 'http://cq.fang.lianjia.com/ditu/'
 lianjia_second_hand_community_url_pattern = 'https://ajax.lianjia.com/ajax/mapsearch/area/community?' \
                                             'min_longitude={}&max_longitude={}&min_latitude={}&max_latitude={}' \
                                             '&&city_id={}&callback=jQuery1111026263228440180875_1502180579317&_=1502180579330'
-lianjia_specific_second_hand_community_url_pattern = 'http://soa.dooioo.com/source/v4/online/house/ershoufang/listMapResult?access_token=7poanTTBCymmgE0FOn1oKp&client=pc&cityCode=sh&type=village&minLatitude={}&maxLatitude={}&minLongitude={}&maxLongitude={}&siteType=quyu'
+lianjia_specific_second_hand_community_url_pattern = 'http://soa.dooioo.com/api/v4/online/house/ershoufang/listMapResult?access_token=7poanTTBCymmgE0FOn1oKp&client=pc&cityCode=sh&type=village&minLatitude={}&maxLatitude={}&minLongitude={}&maxLongitude={}&siteType=quyu'
 LIANJIA_SECOND_COMMUNITY_RAW_DATA_HEADER_LIST = ['name', 'id', 'latitude', 'longitude', 'avg_unit_price', 'bs_avg_unit_price', 'house_count', 'min_price_total']
 LIANJIA_SECOND_COMMUNITY_READY_DATA_HEADER_LIST = ['name', 'id', 'latitude', 'longitude', 'avg_unit_price', 'bs_avg_unit_price', 'house_count', 'min_price_total']
 LIANJIA_SPECIFIC_SECOND_COMMUNITY_READY_DATA_HEADER_LIST = ['currentType', 'dataId', 'dealAvgPrice', 'latitude', 'longitude', 'saleAvgPrice', 'saleTotal', 'showName', 'sort', 'type']
@@ -123,6 +126,9 @@ LIANJIA_NEW_COMMUNITY_NAME_LIST = [ 'name',
                                     'house_type',
                                     'start_price',
                                    ]
+
+
+
 # fangtianxia
 fangtianxia_page_url_pattern = 'http://land.fang.com/market/{}________1_0_{}.html'
 fangtianxia_parcel_url_pattern = 'http://land.fang.com'
@@ -150,6 +156,24 @@ FANGTIANXIA_READY_HEADER_LIST = ['地区', '总面积', '建设用地面积', '�
                                  '建筑密度', '限制高度', '出让形式','出让年限', '位置','规划用途', '起始日期',
                                  '起始价', '成交价', '楼面地价', '溢价率', 'lng', 'lat', '地块编号']
 
+FANGTIANXIA_NAME_LIST=[ 'name',
+                        'lat',
+                        'lng',
+                        'address',
+                        'start_price',
+                        'total_area',
+                        'construction_land_area',
+                        'planned_land_area',
+                        'floor_area_ratio',
+                        'green_ratio',
+                        'business_ratio',
+                        'building_density',
+                        'height_limit',
+                        'time_limit',
+                        'planned_use',
+                        'start_date',
+                        'land_number',
+                        'city']
 
 # complete data header list
 COMPLETE_DATA_HEADER_LIST =['name',
@@ -182,6 +206,3 @@ COMPLETE_DATA_HEADER_LIST =['name',
                             'land_number',
                             'data_type',
                             'city']
-
-
-

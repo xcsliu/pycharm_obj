@@ -1,6 +1,6 @@
 import sys
-if not '/home/xkool/poi/' in sys.path:
-    sys.path.append('/home/xkool/poi/')
+if not 'E:\\xcsliu_project\\pycharm_obj\\poi' in sys.path:
+    sys.path.append('E:\\xcsliu_project\\pycharm_obj\\poi')
 
 import json
 from json import JSONDecodeError
@@ -12,7 +12,7 @@ from constant import anjuke_new_community_url_pattern, anjuke_2nd_community_url_
     ANJUKE_NEW_COMMUNITY_CITY_ID, CITY_LIST
 from crawler.base_crawler import BaseCrawler
 from crawler.crawler_enum import CrawlerDataType, CrawlerSourceName, CrawlerDataLabel
-from util import get_raw_data_file_path
+from util import get_data_file_path, get_today_date
 
 
 class AnjukeCrawler(BaseCrawler):
@@ -101,17 +101,21 @@ class AnjukeCrawler(BaseCrawler):
         return url
 
     def write_new_community_raw_data_in_rect_to_file(self, raw_data_list):
-        write_file_path = get_raw_data_file_path(self.city_name,
-                                                 CrawlerDataType.RAW_DATA.value,
-                                                 CrawlerSourceName.ANJUKE.value,
-                                                 CrawlerDataLabel.NEW_COMMUNITY.value)
+        date = get_today_date()
+        write_file_path = get_data_file_path(self.city_name,
+                                             CrawlerDataType.RAW_DATA.value,
+                                             CrawlerSourceName.ANJUKE.value,
+                                             CrawlerDataLabel.NEW_COMMUNITY.value,
+                                             date)
         self.write_to_file(ANJUKE_NEW_COMMUNITY_RAW_DATA_HEADER_LIST, write_file_path, raw_data_list)
 
     def write_second_community_raw_data_in_rect_to_file(self, raw_data_list):
-        write_file_path = get_raw_data_file_path(self.city_name,
-                                                 CrawlerDataType.RAW_DATA.value,
-                                                 CrawlerSourceName.ANJUKE.value,
-                                                 CrawlerDataLabel.SECOND_HAND_COMMUNITY.value)
+        date = get_today_date()
+        write_file_path = get_data_file_path(self.city_name,
+                                             CrawlerDataType.RAW_DATA.value,
+                                             CrawlerSourceName.ANJUKE.value,
+                                             CrawlerDataLabel.SECOND_HAND_COMMUNITY.value,
+                                             date)
         self.write_to_file(ANJUKE_SECOND_COMMUNITY_RAW_DATA_HEADER_LIST, write_file_path, raw_data_list)
 
 

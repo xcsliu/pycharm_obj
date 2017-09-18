@@ -8,16 +8,24 @@ from constant import COMPLETE_DATA_HEADER_LIST, LIANJIA_SECOND_HAND_COMMUNITY_NA
 from dao.lianjia_dao import format_lianjia_new_community_raw_data, format_lianjia_second_hand_community_raw_data
 
 
-class lianjia_processor(object):
+class Lianjia_Processor(object):
     def __init__(self, city_name):
         self.city_name = city_name
+
+    def get_lianjia_conformed_raw_data(self):
+        anjuke_old, anjuke_new = self.get_lianjia_community_raw_data()
+        consolidated_old, consolidated_new = self.consolidate_second_hand_and_new_community_data_form(anjuke_old, anjuke_new)
+        conformed_raw_data = self.merge_community_raw_data(consolidated_old, consolidated_new)
+        conformed_raw_data['city'] = self.city_name
+        conformed_raw_data['data_type'] = 'lianjia_community'
+        return conformed_raw_data
 
     def get_lianjia_community_raw_data(self):
         lianjia_new = format_lianjia_new_community_raw_data(self.city_name)
         lianjia_old = format_lianjia_second_hand_community_raw_data(self.city_name)
         return lianjia_old, lianjia_new
 
-    def consolidate_form(self, second_hand_community_data, new_community_data):
+    def consolidate_second_hand_and_new_community_data_form(self, second_hand_community_data, new_community_data):
         # rename
         second_hand_community_data.rename(columns={'avg_unit_price': 'present_price',
                                                    'bs_avg_unit_price': 'altra_present_price',
@@ -69,8 +77,9 @@ class lianjia_processor(object):
 
         return consolidated_old, consolidated_new
 
-    def merge_community_data(self, second_hand_community_data, new_community_data):
+    def merge_community_raw_data(self, second_hand_community_data, new_community_data):
         # 把两个数据集重叠的部分小区信息整合在一起
+        print('merging lianjia community raw data...')
         added_old_community_name_list = []
         for i, row in new_community_data.iterrows():
             name = row['name']
@@ -84,8 +93,8 @@ class lianjia_processor(object):
         # 在旧楼盘数据集中去掉已经填充过的部分
         num_note = 0
         for name in added_old_community_name_list:
-            num_note += 1
-            print(num_note)
+            # num_note += 1
+            # print(num_note)
             for idx in second_hand_community_data[second_hand_community_data['name'] == name].index:
                 second_hand_community_data = second_hand_community_data.drop(idx)
 

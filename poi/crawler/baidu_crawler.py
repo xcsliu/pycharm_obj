@@ -1,6 +1,6 @@
 import sys
-if not '/home/xkool/poi/' in sys.path:
-    sys.path.append('/home/xkool/poi/')
+if not 'E:\\xcsliu_project\\pycharm_obj\\poi' in sys.path:
+    sys.path.append('E:\\xcsliu_project\\pycharm_obj\\poi')
 
 import requests
 from requests import RequestException
@@ -10,7 +10,8 @@ from constant import BAIDU_POI_CATEGORIES, TIMEOUT, baidu_poi_url_pattern, BAIDU
     BAIDU_POI_RAW_DATA_HEADER_LIST
 from crawler.base_crawler import BaseCrawler
 from crawler.crawler_enum import CrawlerDataType, CrawlerSourceName, CrawlerDataLabel
-from util import get_raw_data_file_path, get_city_name_by_day
+from util import get_city_name_by_day, get_data_file_path, get_today_date
+
 
 class BaiduCrawler(BaseCrawler):
     def __init__(self, city_name):
@@ -59,17 +60,15 @@ class BaiduCrawler(BaseCrawler):
         return formed_rect
 
     def write_poi_raw_data_in_rect_to_file(self, raw_data_list):
-        write_file_path = get_raw_data_file_path(self.city_name,
-                                                 CrawlerDataType.RAW_DATA.value,
-                                                 CrawlerSourceName.BAIDU.value,
-                                                 CrawlerDataLabel.BAIDU_POI.value)
+        date = get_today_date()
+        write_file_path = get_data_file_path(self.city_name,
+                                             CrawlerDataType.RAW_DATA.value,
+                                             CrawlerSourceName.BAIDU.value,
+                                             CrawlerDataLabel.BAIDU_POI.value,
+                                             date)
         self.write_to_file(BAIDU_POI_RAW_DATA_HEADER_LIST, write_file_path, raw_data_list)
 
 if __name__ == '__main__':
     city_name = get_city_name_by_day()
     crawler = BaiduCrawler(city_name)
     crawler.crawl_baidu_raw_data()
-<<<<<<< HEAD
-
-=======
->>>>>>> 57ceaeed1314d7857a081885a1c991fd2d47c749

@@ -5,6 +5,7 @@ class CrawlerSourceName(enum.Enum):
     LIANJIA = 'lianjia'
     BAIDU = 'baidu'
     FANGTIANXIA = 'fangtianxia'
+    ALL = 'insensitive_source'
 
 
 class CrawlerDataType(enum.Enum):
@@ -18,3 +19,4 @@ class CrawlerDataLabel(enum.Enum):
     BAIDU_POI = 'poi'
     PARCEL = 'parcel'
     SINGLE_SECOND_HAND_APARTMENT = 'second_hand_apartment'
+    TOTAL = 'total_data'

@@ -11,16 +11,24 @@ import numpy as np
 import pandas as pd
 
 
-class anjuke_processor(object):
+class Anjuke_Processor(object):
     def __init__(self, city_name):
         self.city_name = city_name
+
+    def get_anjuke_conformed_raw_data(self):
+        anjuke_old, anjuke_new = self.get_anjuke_community_raw_data()
+        consolidated_old, consolidated_new = self.consolidate_second_hand_and_new_community_data_form(anjuke_old, anjuke_new)
+        conformed_raw_data = self.merge_community_raw_data(consolidated_old, consolidated_new)
+        conformed_raw_data['city'] = self.city_name
+        conformed_raw_data['data_type'] = 'anjuke_community'
+        return conformed_raw_data
 
     def get_anjuke_community_raw_data(self):
         anjuke_new = format_anjuke_new_community_raw_data(self.city_name)
         anjuke_old = format_anjuke_second_hand_community_raw_data(self.city_name)
         return anjuke_old, anjuke_new
 
-    def consolidate_form(self, second_hand_community_data, new_community_data):
+    def consolidate_second_hand_and_new_community_data_form(self, second_hand_community_data, new_community_data):
         # rename and drop
         second_hand_community_data.rename(columns={'truncate_name': 'name',
                                                    'mid_price': 'present_price'}, inplace=True)
@@ -55,10 +63,11 @@ class anjuke_processor(object):
 
     def merge_community_raw_data(self, second_hand_community_data, new_community_data):
         # 把两个数据集重叠的部分整合在一起
+        print ('merging anjuke community raw data...')
         added_new_community_name_list = []
         # 遍历二手房
         for i, row in second_hand_community_data.iterrows():
-            print(str(i) + '/' + str(len(second_hand_community_data)))
+            # print(str(i) + '/' + str(len(second_hand_community_data)))
             name = row['name']
             # 如果二手房的小区名称在新房中出现
             if not new_community_data[new_community_data['name'] == name].empty:
@@ -74,4 +83,3 @@ class anjuke_processor(object):
         total = pd.concat([new_community_data, second_hand_community_data], axis=0)
         total = total.reset_index(drop=True)
         return total
-

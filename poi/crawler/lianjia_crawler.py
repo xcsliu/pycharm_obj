@@ -1,6 +1,6 @@
 import sys
-if not '/home/xkool/poi/' in sys.path:
-    sys.path.append('/home/xkool/poi/')
+if not 'E:\\xcsliu_project\\pycharm_obj\\poi' in sys.path:
+    sys.path.append('E:\\xcsliu_project\\pycharm_obj\\poi')
 
 import json
 import re
@@ -14,7 +14,7 @@ from constant import lianjia_new_community_url_pattern, cq_url_for_lianjia_city_
     LIANJIA_SPECIFIC_NEW_COMMUNITY_CITY_NAME_LIST, LIANJIA_SPECIFIC_SECOND_HAND_COMMUNITY_CITY_NAME_LIST, CITY_LIST
 from crawler.base_crawler import BaseCrawler
 from crawler.crawler_enum import CrawlerDataType, CrawlerSourceName, CrawlerDataLabel
-from util import get_raw_data_file_path, save_raw_data_in_tsv_file
+from util import save_raw_data_in_tsv_file, get_data_file_path, get_today_date
 
 
 class LianjiaCrawler(BaseCrawler):
@@ -46,10 +46,12 @@ class LianjiaCrawler(BaseCrawler):
                 for community in community_list:
                     data_dict_list_for_new_community.append(community)
 
-        file_path = get_raw_data_file_path(self.city_name,
-                                           CrawlerDataType.RAW_DATA.value,
-                                           CrawlerSourceName.LIANJIA.value,
-                                           CrawlerDataLabel.NEW_COMMUNITY.value)
+        date = get_today_date()
+        file_path = get_data_file_path(self.city_name,
+                                       CrawlerDataType.RAW_DATA.value,
+                                       CrawlerSourceName.LIANJIA.value,
+                                       CrawlerDataLabel.NEW_COMMUNITY.value,
+                                       date)
         save_raw_data_in_tsv_file(file_path, data_dict_list_for_new_community)
         self.logger.info('city : {} ][gross lianjia new community data : {}'.format(self.city_name,
                                                                                    self.new_community_data_num))
@@ -107,10 +109,12 @@ class LianjiaCrawler(BaseCrawler):
         return []
 
     def write_second_community_raw_data_in_rect_to_file(self, raw_data_list):
-        write_file_path = get_raw_data_file_path(self.city_name,
-                                                 CrawlerDataType.RAW_DATA.value,
-                                                 CrawlerSourceName.LIANJIA.value,
-                                                 CrawlerDataLabel.SECOND_HAND_COMMUNITY.value)
+        date = get_today_date()
+        write_file_path = get_data_file_path(self.city_name,
+                                             CrawlerDataType.RAW_DATA.value,
+                                             CrawlerSourceName.LIANJIA.value,
+                                             CrawlerDataLabel.SECOND_HAND_COMMUNITY.value,
+                                             date)
         header_list = LIANJIA_SPECIFIC_SECOND_COMMUNITY_READY_DATA_HEADER_LIST if self.city_name in LIANJIA_SPECIFIC_SECOND_HAND_COMMUNITY_CITY_NAME_LIST else LIANJIA_SECOND_COMMUNITY_RAW_DATA_HEADER_LIST
         self.write_to_file(header_list, write_file_path, raw_data_list)
 
