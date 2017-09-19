@@ -1,3 +1,10 @@
+import sys
+
+
+sys.path.append('E:\\xcsliu_project\\pycharm_obj\\poi')
+
+
+
 import pandas as pd
 
 from controller.backend_controller import get_per_km_with_lat_lng
@@ -17,3 +24,13 @@ def get_surrounding_total_data(lng, lat, width_KM):
                           (ready_data['lng'] < lng + dif_lng)]
     return new_data
 
+
+
+new_data = get_surrounding_total_data(106.534743, 29.541842, 1)
+
+
+
+def get_surrounding_community(lng, lat, width_KM):
+    data = get_surrounding_total_data(lng, lat, width_KM)
+    return data[data['data_poi'] == 'community']
+    

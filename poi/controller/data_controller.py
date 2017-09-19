@@ -118,6 +118,9 @@ class Data_Controller():
                 print(str(idx_today) + '/' + str(len(today_data)))
 
                 # 合成有 uid 的部分,主要是合成 baidu 部分
+                # 这部分信息有两类，一类是 community 一类是 baidu_poi，
+                # community 部分主要是更新其价格，补充户型信息；
+                # baidu_poi 信息可以直接更新 or 舍弃，因为基本上没有需要更新的内容
                 if not yesterday_data[yesterday_data['uid'] == row_today['uid']].empty:
                     idx_yesterday = yesterday_data[yesterday_data['uid'] == row_today['uid']].index[0]
                     today_in_yesterday_index_list.append(idx_today)
@@ -126,21 +129,6 @@ class Data_Controller():
                             yesterday_data[header][idx_yesterday] = today_data.at[idx_today, header]
                     for header in ['house_type']:
                         yesterday_data[header][idx_yesterday] = str(yesterday_data.at[idx_yesterday, header]) + ',' + str(today_data.at[idx_today, header])
-
-                # 合并楼盘部分
-                '''
-                if not tmp_res.empty:
-                    for index_new, row_new in tmp_res.iterrows():  
-                        if coordinate_distance(row_old['lng'], row_old['lat'], row_new['lng'], row_new['lat']) < 2:
-                            old_community_index_list_to_drop.append(index_old)
-                        
-                            for header in ['present_price', 'prop_num']:
-                                new_community_data[header][index_new] = second_hand_community_data.at[index_old, header]
-    
-                '''
-
-
-
 
 
             today_in_yesterday_index_list = list(set(today_in_yesterday_index_list))
@@ -161,18 +149,140 @@ class Data_Controller():
                                              CrawlerDataLabel.TOTAL.value,
                                              today)
         ready_data.to_csv(path_or_buf=save_file_path, sep='\t', index=False)
+
+
+
  
-
-
-
 
 
 if __name__ == '__main__':
     start = time.time()
     controller = Data_Controller('重庆')
-    controller.save_ready_data()
+    
+    anjuke_data, lianjia_data, baidu_data, fangtianxia_data = controller.get_raw_data_from_diff_source()
+    # controller.save_ready_data()
     end = time.time()
     print (end-start)
+
+
+
+
+
+
+import json
+row = anjuke_data[anjuke_data['name'] == '翡翠御园']['house_type']
+
+row = row.replace('(','[').replace(')',']').replace("'",'"')
+
+row_loads = json.loads(row)
+
+
+# =安居客====================
+# 将没有信息的部分规范为 []
+for index, row in anjuke_data.iterrows():
+    if type( row['house_type'] ) == float:
+        anjuke_data['house_type'][index] = '[]'
+# 将有信息的部分，规范为可以 loads 的格式
+for index, row in anjuke_data.iterrows():
+    if row['house_type'] != '[]':
+        anjuke_data['house_type'][index] = row['house_type'].replace('(','[').replace(')',']').replace("'",'"')
+
+
+
+# =链家===============
+# 规范成一个统一的数据格式：
+# house_type 规范成为 str
+import re
+for index, row in lianjia_data.iterrows():
+    if type( row['house_type'] ) == float:
+        lianjia_data['house_type'][index] = ''
+        
+ 
+
+
+row = lianjia_data[lianjia_data['name'] == '民生路']['house_type']
+house_type = row.at[row.index[0]]
+
+pattern_1 = re.compile('(\d)居')
+pattern_2 = re.compile('套内 (.*?)m²')
+pattern_3 = re.compile('(\d{1,})')
+
+res_1 = re.findall(pattern_1, house_type)
+res_2 = re.findall(pattern_2, house_type)
+if res_2:
+    res_3 = re.findall(pattern_3, res_2[0])  
+else:
+    res_3 = []
+res = [res_1, res_3]
+
+
+     
+        
+
+pattern_1 = re.compile('(\d)居')
+pattern_2 = re.compile('套内 (.*?)m²')
+pattern_3 = re.compile('(\d{1,})')
+for index, row in lianjia_data.iterrows():
+    res_1 = re.findall(pattern_1, row['house_type'])
+    res_2 = re.findall(pattern_2, row['house_type'])
+    if res_2:
+        res_3 = re.findall(pattern_3, res_2[0])  
+    else:
+        res_3 = []
+    lianjia_data['house_type'][index] = [res_1, res_3]
+       
+# 提取居室信息
+tmp_house_num_list = []
+
+
+
+
+# 居室数目
+
+
+
+
+
+
+
+row = lianjia_data[lianjia_data['name'] == '翡翠御园']['house_type']
+house_type = row.at[1181]
+
+
+for index, row in lianjia_data.iterrows():
+    if type( row['house_type'] ) == float:
+        lianjia_data['house_type'][index] = ''
+
+
+# =====
+# 统计下户型信息
+k = 0
+for index, row in anjuke_data.iterrows():
+    if type(row['house_type']) == float:
+        k += 1
+
+
+k = 0
+for index, row in lianjia_data.iterrows():
+    if type(row['house_type']) == float:
+        k += 1
+
+
+a = [["4室2厅2卫","325"], ["5室2厅2卫","239"],["5室3厅2卫","235"]]
+
+a_json = '[]'
+
+aa = json.loads(a_json)
+
+row.loc['house_type']
+
+# ================
+pattern = re.compile('pointY = "(.*?)";')
+lat = re.findall(pattern, text)[0]
+# ================
+
+
+
     
 '''
 anjuke_data, lianjia_data, baidu_data, fangtianxia_data = controller.get_raw_data_from_diff_source()
@@ -180,10 +290,18 @@ anjuke_data, lianjia_data, baidu_data, fangtianxia_data = controller.get_raw_dat
 controller.save_ready_data()
 
 
+前一天和当天的信息整合：
+1.会有部分新的poi信息
+2.会有部分楼盘有更新的 present price 和 house type，前者进行更新，后者进行补充；
+3.想办法将链家的部分楼盘的户型信息进行格式化，写作 (几室几厅,面积) 的形式
 
 
 
-'''
+
+
+
+
+
 read_path = 'E:\\xcsliu_project\\pycharm_obj\\poi\\poi_data\\chongqing\\ready_data\\2017_09_18\\chongqing_insensitive_source_total_data_2017_09_18.tsv'
 
 raw_data = pd.read_table(read_path, error_bad_lines=False, encoding = 'gbk')
@@ -200,6 +318,6 @@ def get_surrounding_total_data(city_name, lng, lat, width_KM):
                           (ready_data['lng'] < lng + dif_lng)]
     return new_data
 
-
+'''
 
 

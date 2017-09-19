@@ -159,3 +159,16 @@ for i,k in anjuke_old[anjuke_old['name'] == '海缘阁'].iterrows():
     print (k)
     l.append(k)
 '''
+
+
+
+for i in res:
+    for k in i:
+        
+
+
+
+
+
+
+
