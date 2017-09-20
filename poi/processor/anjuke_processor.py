@@ -6,7 +6,7 @@ from constant import COMPLETE_DATA_HEADER_LIST, ANJUKE_SECOND_HAND_COMMUNITY_NAM
     ANJUKE_NEW_COMMUNITY_NAME_LIST
 from dao.anjuke_dao import format_anjuke_new_community_raw_data, format_anjuke_second_hand_community_raw_data
 
-# =====================
+
 import numpy as np
 import pandas as pd
 
@@ -20,7 +20,11 @@ class Anjuke_Processor(object):
         consolidated_old, consolidated_new = self.consolidate_second_hand_and_new_community_data_form(anjuke_old, anjuke_new)
         conformed_raw_data = self.merge_community_raw_data(consolidated_old, consolidated_new)
         conformed_raw_data['city'] = self.city_name
-        conformed_raw_data['data_type'] = 'anjuke_community'
+        conformed_raw_data['data_type'] = 'community'
+        for index, row in conformed_raw_data.iterrows():
+            if type(conformed_raw_data.at[index, 'house_type']) == float:
+                conformed_raw_data['house_type'][index] = str([])
+            conformed_raw_data['house_type'][index] = conformed_raw_data.at[index, 'house_type'].replace('(','[').replace(')',']').replace("'",'"')
         return conformed_raw_data
 
     def get_anjuke_community_raw_data(self):

@@ -13,18 +13,6 @@ def save_raw_data_in_tsv_file(file_path, data_dict_list):
     data_dict_list_pd.to_csv(path_or_buf=file_path, sep='\t', encoding='utf-8')
 
 
-def get_today_date():
-    date = time.strftime('%Y_%m_%d', time.localtime())
-    return date
-
-
-def get_yesterday_date():
-    delta_time = 60*60*24
-    date = time.time() - delta_time
-    yesterday = time.strftime('%Y_%m_%d', time.localtime(date))
-    return yesterday
-
-
 def is_windows_system():
     return 'Windows' in platform.system()
 
@@ -43,14 +31,6 @@ def get_city_name_by_day():
     day = time.strftime("%j", time.localtime())
     num = int(day) % len(CITY_LIST)
     return CITY_LIST[num]
-
-
-def replace_data_with_header_list_from_A_to_B(header_list, table_A, table_B):
-    pass
-
-
-def confirm_is_same_poi_info():
-    pass
 
 
 def coordinate_distance(lon1, lat1, lon2, lat2):  # 经度1，纬度1，经度2，纬度2 （十进制度数）
