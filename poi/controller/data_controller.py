@@ -183,18 +183,22 @@ class Data_Controller():
 
 if __name__ == '__main__':
     start = time.time()
-    controller = Data_Controller('重庆')
+    # controller = Data_Controller('重庆')
     
-    anjuke_data, lianjia_data, baidu_data, fangtianxia_data = controller.get_raw_data_from_diff_source()
-    consolidated_community_data = controller.consolidate_community_data(lianjia_data, anjuke_data)
+    # anjuke_data, lianjia_data, baidu_data, fangtianxia_data = controller.get_raw_data_from_diff_source()
+    # consolidated_community_data = controller.consolidate_community_data(lianjia_data, anjuke_data)
     # consolidated_community_and_poi_data = controller.consolidate_community_and_poi_data(consolidated_community_data, baidu_data)
     # total_consolidated_raw_data = controller.consolidate_land_data_and_rest(fangtianxia_data, consolidated_community_and_poi_data)
     # controller.save_ready_data()
+
+    lianjia_processor = LianjiaProcessor(self.city_name)
+    lianjia_data = lianjia_processor.get_lianjia_conformed_raw_data()
     end = time.time()
     print (end-start)
 
 
 # ==========================
+'''
 start = time.time()
 controller = Data_Controller('重庆')
 # consolidated_community_data = controller.consolidate_community_data(lianjia_data, anjuke_data)
@@ -214,7 +218,7 @@ ready_data.to_csv(path_or_buf=save_file_path, sep='\t', index=False)
 end = time.time()
 print (end-start)
 # ==========================
-'''
+
 import json
 row = anjuke_data[anjuke_data['name'] == '翡翠御园']['house_type']
 
@@ -484,6 +488,49 @@ bb = json.dumps(merged_house_type, ensure_ascii=False)
 
 for index, row in total_consolidated_raw_data.iterrows():
     print ( type(row['present_price']) )
+
+
+def change_test(city_name):
+    return city_name + '哈哈哈'
+
+b = a.city.apply(change_test)
+
+c = a.drop(['city'], axis=1)
+c['city'] = b
+
+
+
+
+A = [False,
+     False,
+     False,
+     True,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     False,
+     ]
+
+d = a[A]
+
+ready_list = [a.iloc[1], a.iloc[3], a.iloc[5]]
+
+e = pd.DataFrame(ready_list)
+
+for k,row in a.iterrows():
+    pass
 
 
 '''
