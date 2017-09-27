@@ -95,7 +95,7 @@ def get_useful_building_list(community_border_list, building_border):
         # print (str(num)+'/'+str(len_buildings))
         p_list = row[3] 
         p_floor = row[1]
-        building_polygon_obj = Polygon(p_list) 
+        building_polygon_obj = Polygon(p_list)
         point_lng = list(building_polygon_obj.centroid.coords)[0][0]
         point_lat = list(building_polygon_obj.centroid.coords)[0][1]
         p_point = Point([point_lng,point_lat])
@@ -107,7 +107,7 @@ def get_useful_building_list(community_border_list, building_border):
                 building_plot_area += building_polygon_obj.area * p_floor
         except TopologicalError:
             pass
-   
+
         
     # 小区建筑覆盖率低于 0.05 的直接排除
     # plot ratio
@@ -215,6 +215,10 @@ for idx,tmp_community_border in enumerate(community_border_list):
 
 end = time.clock()
 print('运行时间：%-.2f s' % (end - start))
+
+
+fig = plt.figure(0)
+ax = fig.add_subplot(111)
 # ====================
 
 '''

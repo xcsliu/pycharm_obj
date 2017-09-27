@@ -1,0 +1,5 @@
+total city num : 367
+saved city num : 361
+unsaved city num : 6
+unsaved city list :
+安顺市	臺中市	臺南市	臺北市	臺东县	南海岛	
