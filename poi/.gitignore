@@ -94,3 +94,6 @@ ENV/
 raw_data/
 ready_data/
 tmp/
+.tsv
+.png
+.jpg
