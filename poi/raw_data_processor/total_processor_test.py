@@ -30,7 +30,7 @@ def get_fangtianxia_raw_data(city_name):
 
 
 
-
+ 
 
 city_name = '重庆'
 anjuke_old, anjuke_new = get_anjuke_community_raw_data(city_name)
@@ -40,4 +40,5 @@ lianjia_old, lianjia_new = get_lianjia_community_raw_data(city_name)
 baidu_raw_data = get_baidu_raw_data(city_name)
 
 fangtianxia_raw_data = get_fangtianxia_raw_data(city_name)
+
 
